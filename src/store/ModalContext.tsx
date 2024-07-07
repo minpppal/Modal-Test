@@ -8,7 +8,9 @@ interface ModalContextType {
 }
 
 //컨텍스트 생성
-const ModalContext = createContext<ModalContextType | undefined>(undefined);
+export const ModalContext = createContext<ModalContextType | undefined>(
+  undefined
+);
 
 //프로바이더 컴포넌트 정의
 export const ModalProvider = ({ children }: { children: ReactNode }) => {

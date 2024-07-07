@@ -1,16 +1,21 @@
 "use client";
-import React from "react";
-import styles from "@/app/components/commentReportModal/CommentReportModal.module.scss";
+import React, { useContext } from "react";
+import styles from "@/components/commentReportModal/CommentReportModal.module.scss";
+import { ModalContext } from "@/store/ModalContext";
 import { useOnClickOutside } from "@modern-kit/react";
-import { useModal } from "@/app/store/ModalContext";
-interface ModalContextType {
-  closeModal: () => void;
-}
 
-const CommentReportModal: React.FC<ModalContextType> = ({ closeModal }) => {
+const CommentReportModal = () => {
+  const modalState = useContext(ModalContext);
+  const isModalOpen = modalState?.isModalOpen;
+  const onClose = modalState?.closeModal;
+
   const { ref } = useOnClickOutside<HTMLDivElement>(() => {
-    closeModal();
+    onClose?.();
   });
+
+  if (!isModalOpen) {
+    return null;
+  }
 
   return (
     <div className={styles.reportBox} ref={ref}>
@@ -21,10 +26,13 @@ const CommentReportModal: React.FC<ModalContextType> = ({ closeModal }) => {
         </p>
       </div>
       <div className={styles.reportContentBox}>
-        <textarea className={styles.reportContent} />
+        <textarea
+          className={styles.reportContent}
+          placeholder="신고 사유를 입력해주세요."
+        />
       </div>
       <div className={styles.reportButtonBox}>
-        <button className={styles.reportButton} onClick={closeModal}>
+        <button className={styles.reportButton} onClick={onClose}>
           신고하기
         </button>
       </div>

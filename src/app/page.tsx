@@ -1,8 +1,10 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { ModalProvider } from "@/store/ModalContext";
 
 export default function Home() {
   return (
+    // <ModalProvider>
     <main className={styles.main}>
       <div className={styles.description}>
         <p>
@@ -91,5 +93,6 @@ export default function Home() {
         </a>
       </div>
     </main>
+    // </ModalProvider>
   );
 }
